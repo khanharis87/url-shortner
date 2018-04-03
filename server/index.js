@@ -24,7 +24,6 @@ app.use(function (req, res, next) {
 
 var users = []
 
-//sign up send a user object, with username, id , password
 app.post('/signup', function(req, res) {
     var user = req.body
     console.log(user)
@@ -37,22 +36,11 @@ app.post('/login', function(req, res) {
     var foundUser = users.find((user) => {
         return user.username === loginUser.username && user.password === loginUser.password
     })
-    console.log('found', foundUser)
-    console.log(users)
     res.json(foundUser)
 })
 
-//  app.get('/user', function(req, res) {
-//      console.log(req.body)
-//      const user = getUser(req.body)
-//      console.log(user)
-//      res.json(user)
-//  })
-
- function getUser(username) {
-    console.log('USERNAME', username, users)
+function getUser(username) {
     return users.find((user) => {
-         console.log(user, user.username, username)
          return user.username === username
      })
  }
@@ -61,15 +49,12 @@ app.post('/shortenLink', function(req, res) {
     var username =  req.body.username
     var user = getUser(username)
     user.links.push(req.body.links)
-    console.log(user)
     res.sendStatus(200)
 })
 
 app.put('/shortenLink', function(req, res) {
     var username =  req.body.username
-    console.log('username', username)
     var user = getUser(username)
-    console.log(user, req.body.links)
     user.links = req.body.links
     res.end()
 })
